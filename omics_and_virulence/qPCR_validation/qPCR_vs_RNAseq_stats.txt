@@ -1,0 +1,28 @@
+RT-qPCR vs RNA-seq log2 fold change (infection vs. in vitro mycelium)
+----------------------------------------------------------------------
+genes          : Avr2 (PITG_08943), EPIC2B (PITG_09173), PITG_13567, PITG_07059
+timepoints     : 24, 48, 72 hpi
+observations   : n = 12
+
+Pearson r      : 0.877  (95% CI 0.610 to 0.965, p = 0.0002)
+R-squared      : 0.769
+Spearman rho   : 0.685  (p = 0.0173)
+Lin's CCC      : 0.752
+OLS qPCR ~ seq : slope = 0.497 (SE 0.086), intercept = 1.379 (SE 0.584)
+same direction : 11 of 12 observations
+
+Per-observation values
+----------------------
+       gene timepoint_hpi qpcr_log2FC rnaseq_log2FC     rnaseq_p
+ PITG_08943            24       6.083        9.7418 2.798903e-48
+ PITG_08943            48       4.960       10.2188 1.228348e-71
+ PITG_08943            72       3.547        9.3805 3.211385e-54
+ PITG_09173            24       7.800        8.1510 1.785981e-50
+ PITG_09173            48       6.530        7.7287 7.370156e-64
+ PITG_09173            72       7.360        6.6750 1.032779e-40
+ PITG_13567            24       0.043        0.1925 7.769691e-01
+ PITG_13567            48      -1.173       -5.7496 1.002593e-11
+ PITG_13567            72      -1.377       -2.9423 4.735460e-04
+ PITG_07059            24       0.683       -5.6971 4.774344e-03
+ PITG_07059            48      -0.770       -4.0128 3.140355e-05
+ PITG_07059            72      -1.120       -1.4539 1.110808e-01

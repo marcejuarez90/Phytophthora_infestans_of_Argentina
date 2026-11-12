@@ -1,0 +1,43 @@
+== run_server.sh  Fri Oct  2 08:31:49 PM UTC 2026  host: precision
+python: Python 3.10.9  numpy: 1.23.5
+iqtree: /home/mjuarez/anaconda3/bin/iqtree2 (IQ-TREE multicore version 2.1.4-beta COVID-edition for Linux 64-bit built Jun 24 2021)
+vcf: /u03/mjuarez/marce/Pi_pop/total/totalpop_final_filter.vcf   md5: b826ae1df30e51be6f2af6f00fcebbc3
+excluded: 08_7054A 
+
+Reading /u03/mjuarez/marce/Pi_pop/total/totalpop_final_filter.vcf
+  120 samples; sites_total=305, sites_skipped_not_biallelic_snp=20, sites_used_biallelic_snps=285
+Excluding: 08_7054A
+
+== Analysis 'all' ==
+  excluded with --exclude: 08_7054A
+  samples requested: 119; sites (biallelic SNPs) before filtering: 285
+  sites dropped for > 20% missing calls: 75
+  sites dropped for being monomorphic in this sample set: 2
+  final: 119 samples x 208 SNPs (0.8% missing cells)
+  wrote all_sample_qc.tsv (per-sample QC)
+  LABEL CHECK: 06_3920A is labeled EU_6_A1 but is closer, on average, to EU_36_A2 (mean distance 0.103 vs 0.161 to its own group)
+  LABEL CHECK: 14D11B is labeled EU_8_A1 but is closer, on average, to EU_36_A2 (mean distance 0.094 vs 0.136 to its own group)
+  LABEL CHECK: 95_17_3_2 is labeled EU_8_A1 but is closer, on average, to EU_2_A1 (mean distance 0.088 vs 0.102 to its own group)
+  LABEL CHECK: FAB22012E is labeled EU_6_A1 but is closer, on average, to EU_3_A2 (mean distance 0.123 vs 0.161 to its own group)
+  bootstrap (1000 replicates): 116 internal edges, median support 39%, >= 70%: 21
+  wrote results_excl_08_7054A/all/all_nj.nwk
+  wrote SNP alignment results_excl_08_7054A/all/all_snps.fasta
+  wrote ML tree (IQ-TREE, model MFP+ASC): all_ml.nwk
+
+'ar_eu' list: 55 requested, 55 found in the VCF, 1 left out by --exclude
+
+== Analysis 'ar_eu' ==
+  excluded with --exclude: 08_7054A
+  samples requested: 54; sites (biallelic SNPs) before filtering: 285
+  sites dropped for > 20% missing calls: 75
+  sites dropped for being monomorphic in this sample set: 30
+  final: 54 samples x 180 SNPs (0.7% missing cells)
+  wrote ar_eu_sample_qc.tsv (per-sample QC)
+  LABEL CHECK: 06_3920A is labeled EU_6_A1 but is closer, on average, to EU_36_A2 (mean distance 0.119 vs 0.186 to its own group)
+  LABEL CHECK: 14D11B is labeled EU_8_A1 but is closer, on average, to EU_36_A2 (mean distance 0.108 vs 0.158 to its own group)
+  LABEL CHECK: 95_17_3_2 is labeled EU_8_A1 but is closer, on average, to EU_2_A1 (mean distance 0.102 vs 0.118 to its own group)
+  LABEL CHECK: FAB22012E is labeled EU_6_A1 but is closer, on average, to EU_3_A2 (mean distance 0.142 vs 0.186 to its own group)
+  bootstrap (1000 replicates): 51 internal edges, median support 42%, >= 70%: 13
+  wrote results_excl_08_7054A/ar_eu/ar_eu_nj.nwk
+  wrote SNP alignment results_excl_08_7054A/ar_eu/ar_eu_snps.fasta
+  wrote ML tree (IQ-TREE, model MFP+ASC): ar_eu_ml.nwk

@@ -1,0 +1,6 @@
+# Samples left out of every analysis (--exclude). One name per line; # = comment.
+#
+# 08_7054A: genotyped as EU_2_A1 by SSR (7054_A in the SSR table), but its amplicon
+# profile is intermediate between EU_2_A1 and EU_13_A2 (closest to EU_13_A2 isolates);
+# its origin is being checked with whoever provided the sample.
+08_7054A

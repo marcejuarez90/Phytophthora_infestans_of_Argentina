@@ -1,0 +1,14 @@
+excluded with --exclude: 08_7054A
+samples requested: 54; sites (biallelic SNPs) before filtering: 285
+sites dropped for > 20% missing calls: 75
+sites dropped for being monomorphic in this sample set: 30
+final: 54 samples x 180 SNPs (0.7% missing cells)
+wrote ar_eu_sample_qc.tsv (per-sample QC)
+LABEL CHECK: 06_3920A is labeled EU_6_A1 but is closer, on average, to EU_36_A2 (mean distance 0.119 vs 0.186 to its own group)
+LABEL CHECK: 14D11B is labeled EU_8_A1 but is closer, on average, to EU_36_A2 (mean distance 0.108 vs 0.158 to its own group)
+LABEL CHECK: 95_17_3_2 is labeled EU_8_A1 but is closer, on average, to EU_2_A1 (mean distance 0.102 vs 0.118 to its own group)
+LABEL CHECK: FAB22012E is labeled EU_6_A1 but is closer, on average, to EU_3_A2 (mean distance 0.142 vs 0.186 to its own group)
+bootstrap (1000 replicates): 51 internal edges, median support 42%, >= 70%: 13
+wrote results_excl_08_7054A/ar_eu/ar_eu_nj.nwk
+wrote SNP alignment results_excl_08_7054A/ar_eu/ar_eu_snps.fasta
+wrote ML tree (IQ-TREE, model MFP+ASC): ar_eu_ml.nwk

@@ -1,0 +1,42 @@
+# R session files
+.RData
+.RDataTmp
+.Rhistory
+.Rproj.user/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+
+# Local manuscript material and build outputs (not part of the code repository)
+submission_material/
+Figures/
+Sup_material/
+*.docx
+nov26_con_Ecuador/
+nov26_sin_Ecuador/
+/*.pdf
+*.zip
+Rplots.pdf
+
+# Isolates not yet cleared for publication (Ecuador and Costa Rica isolates of this work):
+# the complete table stays local; inputs/full_dataset_SSR.csv is the table without them
+SSR_populations/inputs/full_dataset_SSR_with_Ecuador_CostaRica.csv
+SSR_populations/inputs/thiswork_florlucca_plantaid_format.csv
+
+# Generated outputs (rebuilt by build_all.sh)
+SSR_populations/outputs/
+omics_and_virulence/outputs/
+omics_and_virulence/avrblb2_family/outputs/
+__pycache__/
+omics_and_virulence/qPCR_validation/qPCR_vs_RNAseq.png
+SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*.png
+SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*.pdf
+SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*.svg
+SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*_iqtree.*
+SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*_ml.nwk
