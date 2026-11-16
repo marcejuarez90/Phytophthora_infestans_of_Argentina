@@ -24,6 +24,15 @@ nov26_sin_Ecuador/
 *.zip
 Rplots.pdf
 
+# Page layouts: how the panels are composed into each published figure. They are
+# a decision of the manuscript, not of the analysis, so they stay local and out
+# of the public repository -- but they stay on disk, next to the code that builds
+# the panels. The canonical copies live in nov26_sin_Ecuador/final_version/.
+make_fig*.R
+make_fig*.py
+*_layout.py
+*_layout.R
+
 # Isolates not yet cleared for publication (Ecuador and Costa Rica isolates of this work):
 # the complete table stays local; inputs/full_dataset_SSR.csv is the table without them
 SSR_populations/inputs/full_dataset_SSR_with_Ecuador_CostaRica.csv
@@ -33,6 +42,7 @@ SSR_populations/inputs/thiswork_florlucca_plantaid_format.csv
 SSR_populations/outputs/
 omics_and_virulence/outputs/
 omics_and_virulence/avrblb2_family/outputs/
+omics_and_virulence/avr3a_allele/outputs/
 __pycache__/
 omics_and_virulence/qPCR_validation/qPCR_vs_RNAseq.png
 SSR_populations/Amplicon_pop/results_excl_08_7054A/*/*.png

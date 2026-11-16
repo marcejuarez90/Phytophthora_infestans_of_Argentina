@@ -1,0 +1,4 @@
+gene	residue	aa	allele	n_reads	proportion	ref_aa
+PITG_14371	19	S	EM	20	1.0	S
+PITG_14371	80	E	EM	24	1.0	E
+PITG_14371	103	M	EM	31	1.0	M

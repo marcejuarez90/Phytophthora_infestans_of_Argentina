@@ -1,0 +1,2 @@
+pooled_reads_at_205	observed_T	upper95_frequency	error_rate_per_base	n_mismatch_bases	n_read_bases	median_depth_present_paralog	expected_frequency_if_present	p_zero_if_present
+64	0	0.045729702330762456	0.00276268115942029	61	22080	18	0.21951219512195122	1.4928699328389746e-09

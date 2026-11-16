@@ -1,0 +1,5 @@
+base	meaning	n_reads	proportion	n_reads_mapq30
+A	Ile-69	37	0.578125	37
+C	not observed in natural populations	0	0.0	0
+G	Ala-69 / Val-69	27	0.421875	27
+T	Phe-69 (evasion)	0	0.0	0

@@ -1,0 +1,2 @@
+gene	reads_spanning_both	n_KI	n_EM	upper95_frequency_KI	error_rate_per_base	n_mismatch_bases	n_read_bases	reference_allele
+PITG_14371	13	0	13	0.20581666518655073	0.0039561229994605285	44	11122	EMEM

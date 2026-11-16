@@ -39,7 +39,10 @@ cp inputs/tabla_LFC_pvalor.tsv ../Sup_material/TableS5_differential_expression_P
 cd qPCR_validation
 "$RSCRIPT" qPCR_vs_RNAseq.R                # RT-qPCR vs RNA-seq regression
 cd ../avrblb2_family
-"$PYTHON" avrblb2_family.py                # outputs/avrblb2_family.csv and .pdf (AVR-blb2 paralogs)
+"$PYTHON" avrblb2_family.py                # outputs/avrblb2_family.csv and .pdf (AVR-blb2 family tree + coverage)
+"$PYTHON" plot_snp205.py                   # outputs/fig5B_snp205.pdf (SNP-205 genotyping, Figure 5B)
+cd ../avr3a_allele
+"$PYTHON" plot_avr3a.py                    # outputs/figS5_avr3a.pdf (Supplementary Figure S5)
 cd ../..
 
 echo "Done. Panels in each folder's outputs/, tables in Sup_material/."
