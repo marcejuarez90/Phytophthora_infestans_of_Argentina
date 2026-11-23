@@ -7,24 +7,30 @@ covers the population-genetics figures.
 | Result | Built by | Written to |
 |---|---|---|
 | Genome and effector-expression panels (Figure 3, Supplementary Figure S3) | notebook | `outputs/fig3/`, `outputs/fig_sup3/`, `outputs/fig_sup4/` |
-| Potato-assay and AVR-coverage panels (Figure 4) | notebook | `outputs/fig4/` |
-| N. benthamiana assay and AVR TPM panels (Figure 5) | notebook | `outputs/fig5/` |
+| AVR read-depth profiles (Figure 3, panel D) and potato-assay panels (Figure 4) | notebook | `outputs/fig4/` |
+| *N. benthamiana* assay (Figure 5, panel C) | notebook | `outputs/fig5/` |
 | AVR-blb2 paralog family (Figure 5) | `avrblb2_family/` (own README) | `avrblb2_family/outputs/` |
 | RT-qPCR vs RNA-seq regression (Supplementary Figure S4) | `qPCR_validation/` (own README) | `qPCR_validation/` |
-| Supplementary Table S5 | `inputs/tabla_LFC_pvalor.tsv` (copied) | `../Sup_material/TableS5_differential_expression_PiNSL19.tsv` |
+| Supplementary Table S5 | `make_table_s5.py` | `../Sup_material/TableS5_gene_expression_PiNSL19.xlsx` |
 
 Every panel is written on its own. How panels are arranged into the figures of the manuscript
 is a presentation choice and is not part of this repository.
 
+The notebook reads its read-mapping QC from CSVs in `inputs/`. Those are produced on the compute
+cluster, from the BAM files, by `effector_mapping_qc/` and `avrblb2_pipeline/`, which need the
+alignments and are not part of this repository; the sections below name their scripts so the
+workflow can be followed, and every cell that uses them says what it does when the CSV is
+absent.
+
 Figure 3: **A** heterozygous allele-frequency histogram; **B** gene copy number by effector
-family; **C** WGS read depth over AVR1, AVR3b, AVR4 (PITG_07387) and AVR3a (shared y axis
-0-40); **D** curated effector panel, mean log2(TPM + 1), rows clustered (PITG_15278 and
-AVR-cap1b are not shown; AVR-smira2, PITG_07558, is labeled AVR8).
+family; **C** curated effector panel, mean log2(TPM + 1), rows clustered (PITG_15278 and
+AVR-cap1b are not shown; AVR-smira2, PITG_07558, is labeled AVR8); **D** WGS read depth over
+AVR1, AVR3b, AVR4 (PITG_07387) and AVR3a (shared y axis 0-40).
 
 Figure 4: **A** potato leaf infection assay (Spunta / Innovator photos and % leaf area
 affected); **B** map of the Argentine isolates and their phenotype on Innovator
 (`../SSR_populations/outputs/s2/mapa_argentina_innovator.png`, drawn by the last section of
-`haplotype_network_v4.R`); **C** AVR1/AVR2/AVR3a/AVR3b mean log2(TPM + 1).
+`../SSR_populations/haplotype_network_v4.R`); **C** AVR1/AVR2/AVR3a/AVR3b mean log2(TPM + 1).
 
 ## Layout
 
@@ -36,8 +42,8 @@ omics_and_virulence/
 ├── qPCR_validation/            # Supplementary Figure S4 (R script + data, own README)
 └── outputs/                    # one file per panel, plus PNG/SVG previews
     ├── fig3/  fig4/  fig5/
-    ├── fig_sup3/               # Supplementary Figure S3 (folder name kept from an earlier numbering)
-    └── fig_sup4/               # mapping-QC standalone outputs that feed Supplementary Figure S3
+    ├── fig_sup3/               # Supplementary Figure S3 (folder names kept from an earlier numbering)
+    └── fig_sup4/               # mapping-QC standalone outputs, also Supplementary Figure S3
 ```
 
 ## Run
@@ -75,7 +81,7 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   **Bars shown are dynamic, not hardcoded**: RXLR/CRINKLER/APOPLASTIC are
   always present; the load cell looks for an *extended* QC file
   (`inputs/effector_mapping_qc_wgs_per_gene_ext.csv`) that additionally
-  covers the rest of the genome (built via `Paper Marce/effector_mapping_qc/
+  covers the rest of the genome (built via `effector_mapping_qc/
   effector_mapping_qc.py --all-genes`, which tags every non-effector gene
   `OTHER` straight from the GTF -- no separate CSV to build; see that
   folder's README, "Genome-wide run") and, if found and an `OTHER` category
@@ -106,7 +112,7 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   `FCNV_MAPQ_THRESHOLD` and the `FCNV_*` styling variables are exposed as
   config at the top of the section. Self-contained; requires
   `inputs/effector_mapping_qc_wgs_per_gene.csv` (see the "Effector mapping
-  QC" sections and `Paper Marce/effector_mapping_qc/README.md` for how it's
+  QC" sections and `effector_mapping_qc/README.md` for how it's
   produced) alongside `gene_ploidy_v2.csv`, plus optionally
   `inputs/effector_mapping_qc_wgs_per_gene_ext.csv` for the genome-wide
   `total` bar.
@@ -347,7 +353,7 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
     MAPQ (C) and fraction of reads with MAPQ = 0 (D). Requires
     `inputs/effector_mapping_qc_per_gene.csv`, produced by running
     `effector_mapping_qc.py` on the cluster (see
-    `Paper Marce/effector_mapping_qc/README.md` for the full workflow and
+    `effector_mapping_qc/README.md` for the full workflow and
     `run_effector_qc.sh` to launch it); shows "not available" in these two
     panels if the file isn't there yet. **Result (run on real cluster
     data, 2026-09-11): Crinkler maps substantially worse** — median MAPQ
@@ -416,7 +422,7 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   variety expresses ("Spunta / R1", "Innovator / R1 R2 R3a R3b"). Points
   below a 5%-lesion threshold in Innovator are flagged with a red X as a
   hypersensitive response rather than a compatible lesion. Extracted
-  from `via_phytophthora_analysis.ipynb`; only the plotting step is
+  from an earlier version of this notebook; only the plotting step is
   reproduced here (the upstream VIA/pliman image-annotation pipeline
   that produces `areas_por_hoja_total.csv` from the raw leaf photos and
   VGG Image Annotator JSON files is not included).
@@ -439,7 +445,8 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   per-leaf HR call, unlike Figure 4's distance-based 5% proxy). Saved as
   `outputs/fig5/fig5_lesion_boxplot.pdf`/`.svg`.
 - **AVR1/AVR3a/AVR-blb2/AVR-amr1/AVR-amr3 mean log2(TPM + 1) across
-  timepoints (for Figure 5)** — same source and log2(TPM + 1) transform as
+  timepoints (exploratory; not a panel of the published Figure 5, whose
+  expression data are in Figure 3C)** — same source and log2(TPM + 1) transform as
   the Figure 4 TPM panel (per-replicate transform, then averaged), for the
   five effectors that correspond to the transgenic lines tested in
   Figure 5 (*AVR1*↔R1, *AVR3a*↔R3a, *AVR-blb2*↔blb2, *AVR-amr1*↔amr1,

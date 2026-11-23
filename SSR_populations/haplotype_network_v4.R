@@ -25,6 +25,17 @@ save_ggplot_multi <- function(plot, basepath, width, height, dpi = 600, bg = "wh
 loci <- c("D13","PinfSSR8","PinfSSR4","Pi04","Pi70","PinfSSR6",
           "Pi63","PiG11","Pi02","PinfSSR11","PinfSSR2","Pi4B")
 
+# Repeat length of each locus, for Bruvo's distance. Ten of the twelve are
+# dinucleotide; Pi63 and Pi70 are trinucleotide, and the alleles observed here
+# step accordingly (Pi70: 189/192/195; Pi63: 270/273/279).
+# RL() matches the vector to the loci an object actually carries, by name:
+# missingno() and poppr.amova() drop loci with more than 5% missing data, so a
+# vector indexed by position would give the wrong repeat length to the loci
+# that remain.
+replen <- setNames(rep.int(2, length(loci)), loci)
+replen[c("Pi63", "Pi70")] <- 3
+RL <- function(g) replen[locNames(g)]
+
 geno_colors <- c(
   "BR_1"      = "#a65628",
   "EC1"       = "orange",
@@ -332,8 +343,8 @@ pcoa_bruvo <- function(bruvo_dist, df_in, colors_vec,
   p <- ggplot(sc, aes(x = PCo1, y = PCo2, fill = Group)) +
     geom_point(shape = 21, size = 3, color = "grey30", stroke = 0.3, alpha = 0.85) +
     scale_fill_manual(values = colors_vec, name = "Group", na.value = "#cccccc") +
-    labs(x     = paste0("PCo1 (", var_exp[1], "%)"),
-         y     = paste0("PCo2 (", var_exp[2], "%)"),
+    labs(x     = sprintf("PCo1 (%.1f%%)", var_exp[1]),
+         y     = sprintf("PCo2 (%.1f%%)", var_exp[2]),
          title = paste0("PCoA — Bruvo distance",
                         if (!is.null(label)) paste0("  [", label, "]"))) +
     theme_bw(base_size = 12) +
@@ -552,8 +563,8 @@ pcoa_publication_plot <- function(bruvo_dist, df_in, gc,
   }
 
   p <- p +
-    labs(x = paste0("PCo1 (", var_exp[1], "%)"),
-         y = paste0("PCo2 (", var_exp[2], "%)")) +
+    labs(x = sprintf("PCo1 (%.1f%%)", var_exp[1]),
+         y = sprintf("PCo2 (%.1f%%)", var_exp[2])) +
     theme_bw(base_size = 14) +
     theme(panel.grid.minor = element_blank(),
           legend.position  = if (show_legend) "right" else "none",
@@ -678,7 +689,7 @@ amova_analysis <- function(gm, df_in, sn, formula_str, strata_cols,
     strata(gc2) <- strata_df
 
     gc_cc    <- clonecorrect(gc2, strata = as.formula(formula_str))
-    bruvo_cc <- bruvo.dist(gc_cc, replen = rep(2, length(loci)))
+    bruvo_cc <- bruvo.dist(gc_cc, replen = RL(gc_cc))
 
     amova_res <- poppr.amova(gc_cc, as.formula(formula_str),
                               dist = bruvo_cc, method = "ade4")
@@ -1202,7 +1213,7 @@ run_analysis <- function(s, label, amova_formula = "~Pop_geno/Pop_country",
   outdir <- file.path("outputs", tolower(label))
 
   gc_base <- as.genclone(df2genind(gm, sep = "/", ploidy = 3, ind.names = sn))
-  bruvo   <- bruvo.dist(gc_base, replen = rep(2, length(loci)))
+  bruvo   <- bruvo.dist(gc_base, replen = RL(gc_base))
 
   # gc_geno/gen_geno are grouped by Pop_geno_map (the unified genotype
   # palette/categories, Section 1), not raw Pop_geno — otherwise the MSN and
@@ -1431,7 +1442,7 @@ save_ggplot_multi(p_map_provenance, "outputs/s1/mapa_provenance_post2005",
 #  they can be compared point by point.
 # ══════════════════════════════════════════════════════════════════════════════
 gc_base_s1 <- as.genclone(df2genind(s1$gm, sep = "/", ploidy = 3, ind.names = s1$sn))
-bruvo_s1   <- bruvo.dist(gc_base_s1, replen = rep(2, length(loci)))
+bruvo_s1   <- bruvo.dist(gc_base_s1, replen = RL(gc_base_s1))
 
 df_fig1b <- s1$df
 
@@ -1696,7 +1707,7 @@ subpop_linetypes <- c(
 )
 
 gc_base_s2 <- as.genclone(df2genind(s2$gm, sep = "/", ploidy = 3, ind.names = s2$sn))
-bruvo_s2   <- bruvo.dist(gc_base_s2, replen = rep(2, length(loci)))
+bruvo_s2   <- bruvo.dist(gc_base_s2, replen = RL(gc_base_s2))
 
 df_fig_eu2a1 <- s2$df
 df_fig_eu2a1$Pop_3pop <- with(df_fig_eu2a1,
@@ -1849,7 +1860,7 @@ add_map_pcoa <- function(s, dataset_label, file_prefix, ellipses = TRUE) {
   rownames(gm) <- sn
 
   gc    <- as.genclone(df2genind(gm, sep = "/", ploidy = 3, ind.names = sn))
-  bruvo <- bruvo.dist(gc, replen = rep(2, length(loci)))
+  bruvo <- bruvo.dist(gc, replen = RL(gc))
 
   # (1) Points colored by country (pie charts for MLGs spanning >1 country,
   # same convention as Figures 1b/EU2A1-subpop above); ellipses by genotype,
@@ -2085,7 +2096,7 @@ pairwise_phist <- function(gc_cc, min_n = 5, n_perm = 9999, seed = 42) {
   res  <- do.call(rbind, lapply(prs, function(pr) {
     sub <- gc_cc[strata(gc_cc)$Country %in% pr, ]
     sub@strata$Country <- droplevels(factor(strata(sub)$Country))
-    bd  <- suppressWarnings(bruvo.dist(sub, replen = rep(2, nLoc(sub))))
+    bd  <- suppressWarnings(bruvo.dist(sub, replen = RL(sub)))
     am  <- suppressWarnings(suppressMessages(
              poppr.amova(sub, ~Country, dist = bd, method = "ade4", missing = "ignore", quiet = TRUE)))
     set.seed(seed)

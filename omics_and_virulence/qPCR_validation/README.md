@@ -24,7 +24,8 @@ Note that the column labelled `lfc` in the workbook is in fact the fold change
 PITG_09173 is taken from the `final` sheet, which already stores log2FC.
 
 **`rnaseq_log2FC`** — columns `T3LFC`, `T4LFC`, `T5LFC` of
-`Sup_material/TableS5_differential_expression_PiNSL19.tsv`
+`../inputs/tabla_LFC_pvalor.tsv`, the differential-expression table that the DE
+sheet of Supplementary Table S5 is built from (`../make_table_s5.py`)
 (T3 = 24 hpi, T4 = 48 hpi, T5 = 72 hpi), i.e. each infection timepoint against
 the in vitro mycelium control, the same contrast as the qPCR. `rnaseq_p` is the
 matching `T*pval` column.

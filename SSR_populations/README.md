@@ -51,9 +51,7 @@ install.packages(c("poppr", "adegenet", "ade4", "ape", "phangorn", "ggplot2",
 ## Input data
 
 `inputs/full_dataset_SSR.csv` — one row per isolate (2,187 isolates), read as
-is: the script does no further filtering. It does not include 55 isolates of this
-work from Ecuador (48) and Costa Rica (7), which are not yet cleared for publication;
-none of them is EU_2_A1. Columns:
+is: the script does no further filtering. Columns:
 
 - `Sample` — isolate ID (duplicates are disambiguated with `make.unique()`
   at load time).
@@ -74,6 +72,13 @@ none of them is EU_2_A1. Columns:
   `PinfSSR6`, `Pi63`, `PiG11`, `Pi02`, `PinfSSR11`, `PinfSSR2`, `Pi4B`.
   Genotype calls are triploid, alleles separated by `/`
   (`df2genind(..., sep = "/", ploidy = 3)`).
+
+Bruvo's distance needs the repeat length of each locus (`replen`, Section 1):
+ten of the twelve are dinucleotide, while `Pi63` and `Pi70` are trinucleotide
+and get 3 bp. `RL()` subsets that vector **by locus name**, because
+`missingno()` and `poppr.amova()` drop loci with more than 5% missing data and a
+vector indexed by position would then give the wrong repeat length to the loci
+that remain.
 
 Genotype labels are folded into one set of categories (`Pop_geno_map`,
 `map_genotype_category()`): `EU_2_A1` (incl. `PE_7.1`), `EC1` (incl. `EC_1`),

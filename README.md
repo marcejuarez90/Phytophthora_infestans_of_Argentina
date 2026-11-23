@@ -21,18 +21,18 @@ repository**: what is here reproduces each panel and each result on its own.
 
 | Item | Built by |
 |---|---|
-| Figure 1 | `SSR_populations/make_figura1.R`, from the panels of `haplotype_network_v4.R` |
-| Figure 2 | panels from `SSR_populations/haplotype_network_v4.R` (the published figure is assembled by hand) |
+| Figure 1 | panels from `SSR_populations/haplotype_network_v4.R` |
+| Figure 2 | panels from `SSR_populations/haplotype_network_v4.R` |
 | Figures 3 and 4 | `omics_and_virulence/omics_and_virulence.ipynb` |
-| Figure 5 panels | `omics_and_virulence.ipynb` (lesion assay) and `omics_and_virulence/avrblb2_family/` (AVR-blb2 family tree and coverage; SNP-205 genotyping) |
-| Supplementary Figure S1 | `SSR_populations/make_figsup_sampling_years.R` |
-| Supplementary Figure S2 | `SSR_populations/make_figsup_amplicon_phist.R` |
+| Figure 5 panels | `omics_and_virulence/avrblb2_family/` (AVR-blb2 family tree and coverage; SNP-205 genotyping) and `omics_and_virulence/omics_and_virulence.ipynb` (the transgenic *N. benthamiana* assay) |
+| Supplementary Figure S1 | `SSR_populations/make_sampling_year_panels.R` |
+| Supplementary Figure S2 | panel A from `SSR_populations/Amplicon_pop/plot_amplicon_tree.R`; panels B and C from the pairwise ΦST section of `SSR_populations/haplotype_network_v4.R` |
 | Supplementary Figure S3 | `omics_and_virulence/omics_and_virulence.ipynb` |
 | Supplementary Figure S4 | `omics_and_virulence/qPCR_validation/qPCR_vs_RNAseq.R` |
 | Supplementary Figure S5 | `omics_and_virulence/avr3a_allele/plot_avr3a.py` |
 | Supplementary Table S1 (isolates and SSR genotypes) | copy of `SSR_populations/inputs/full_dataset_SSR.csv` |
 | Supplementary Table S2 (EU_2_A1 structure and diversity) | `SSR_populations/make_supp_table_structure.py` |
-| Supplementary Table S5 (differential expression of PiNSL-19) | copy of `omics_and_virulence/inputs/tabla_LFC_pvalor.tsv` |
+| Supplementary Table S5 (gene expression of PiNSL-19: DE and TPM sheets) | `omics_and_virulence/make_table_s5.py` |
 
 Supplementary Tables S3, S4 and S6 (sequencing and alignment metrics, primer lists, effector
 annotation) are not produced by any script and are not in this repository; they are part of the
@@ -42,5 +42,4 @@ manuscript's supplementary material. The effector annotation they summarize is h
 ## Isolate table
 
 `SSR_populations/inputs/full_dataset_SSR.csv` holds the 2,187 isolates the manuscript analyses.
-It does not include 55 isolates of this work from Ecuador and Costa Rica that are not yet
-cleared for publication.
+It is the table every SSR analysis here reads, and Supplementary Table S1 is a copy of it.

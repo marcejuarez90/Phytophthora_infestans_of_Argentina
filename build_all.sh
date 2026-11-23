@@ -35,7 +35,7 @@ cd ..
 cd omics_and_virulence
 "$JUPYTER" --to notebook --execute --inplace --ExecutePreprocessor.timeout=1200 \
     omics_and_virulence.ipynb              # every panel of the genome, RNA-seq and assay sections -> outputs/
-cp inputs/tabla_LFC_pvalor.tsv ../Sup_material/TableS5_differential_expression_PiNSL19.tsv
+"$PYTHON" make_table_s5.py                 # Sup_material/TableS5_gene_expression_PiNSL19.xlsx (DE + TPM sheets)
 cd qPCR_validation
 "$RSCRIPT" qPCR_vs_RNAseq.R                # RT-qPCR vs RNA-seq regression
 cd ../avrblb2_family

@@ -33,10 +33,10 @@ make_fig*.py
 *_layout.py
 *_layout.R
 
-# Isolates not yet cleared for publication (Ecuador and Costa Rica isolates of this work):
-# the complete table stays local; inputs/full_dataset_SSR.csv is the table without them
-SSR_populations/inputs/full_dataset_SSR_with_Ecuador_CostaRica.csv
-SSR_populations/inputs/thiswork_florlucca_plantaid_format.csv
+# Working copies of the isolate table stay local: full_dataset_SSR.csv is the one
+# every analysis here reads
+SSR_populations/inputs/*
+!SSR_populations/inputs/full_dataset_SSR.csv
 
 # Generated outputs (rebuilt by build_all.sh)
 SSR_populations/outputs/
