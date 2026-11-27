@@ -387,10 +387,10 @@ pcoa_bruvo <- function(bruvo_dist, df_in, colors_vec,
 # a PCo1 unit and a PCo2 unit render at the same visual scale, and so two
 # panels built from the same PCoA (e.g. Fig1b's country- and genotype-colored
 # versions, both computed from the same bruvo_dist) come out the same size
-# and proportions when placed side by side — one was previously stretching
-# to fill its canvas (point style, no coord_fixed) while the other kept its
-# real aspect ratio (pie style already had coord_fixed), so despite saving
-# at the same width/height they looked mismatched next to each other.
+# and proportions when placed side by side: without it the point style
+# stretches to fill its canvas while the pie style keeps its real aspect
+# ratio, so two panels saved at the same width and height still look
+# mismatched next to each other.
 # Saves directly to file since this is meant to be assembled as a standalone
 # panel alongside the map and the amplicon-sequencing tree (both generated
 # separately) into the final Figure 1.
@@ -967,10 +967,10 @@ dapc_cluster_validation <- function(gen, pop_country,
 # any one piece (locus table, a genclone construction, a poppr() call, a
 # write.csv) prints a message and yields NULL/skips, but does NOT abort the
 # whole function — which matters because export_diversity() runs inside
-# run_analysis(), and an uncaught error here previously killed the entire
-# run_analysis() call, silently preventing res1/res2 from ever being
-# assigned (visible only as accumulated warnings with no clear error text,
-# then "object 'resX' not found" on the next line that tried to use it).
+# run_analysis(), where an uncaught error kills the entire run_analysis()
+# call and silently leaves res1/res2 unassigned (visible only as accumulated
+# warnings with no clear error text, then "object 'resX' not found" on the
+# next line that tries to use it).
 export_diversity <- function(gc, gm, df_in, sn, prefix, outdir = ".") {
   safe_run <- function(expr, label) {
     tryCatch(expr, error = function(e) {
@@ -1279,14 +1279,12 @@ run_analysis <- function(s, label, amova_formula = "~Pop_geno/Pop_country",
   )
 
   # ── UPGMA ──────────────────────────────────────────────────────────────────
-  # Filenames are explicit about which grouping colors the tree (previously
-  # exported by hand from RStudio's plot pane as a single ambiguous
-  # "UPGMA_totpop"/"UPGMA_2A1" file with no way to tell which of the two
-  # groupings below it corresponded to — now both are saved automatically).
+  # Both groupings are written out, and the filename says which one colors
+  # the tree, so the two files are never ambiguous.
   # By-genotype tree colors tips via Pop_geno_map/map_geno_colors (same
   # unified palette as the PCoA above and the map figures), not raw
-  # Pop_geno/geno_colors — otherwise most tips (labeled "EC_1", "EU_13_A2",
-  # "US_7_A2", etc.) had no matching color entry and rendered grey.
+  # Pop_geno/geno_colors — with the raw labels most tips ("EC_1", "EU_13_A2",
+  # "US_7_A2", …) have no matching color entry and render grey.
   cat(paste0("\n══ UPGMA — ", label, " ══\n"))
   tree_geno    <- upgma_plot(bruvo, d, map_geno_colors, "Pop_geno_map", label = label,
                               filename = file.path(outdir, paste0("UPGMA_", label, "_by_geno")))
@@ -1810,11 +1808,9 @@ eu_reference_codes <- c("ND", "GB", "UK", "ref", "EN", "xx",
                          "United Kingdom", "United Kingdom(Wales)",
                          "Netherlands", "Belgium")
 
-# map_geno_colors / map_geno_linetypes / the categorization logic now live in
-# Section 1 (map_genotype_category()) as the single shared genotype palette
-# used across this whole script — see the comment there for what folds into
-# what. Kept here only as a pointer since this section is where that scheme
-# was originally introduced.
+# map_geno_colors / map_geno_linetypes and the categorization logic live in
+# Section 1 (map_genotype_category()): the single shared genotype palette used
+# across this whole script — see the comment there for what folds into what.
 
 # country_colors extended with the one category this dataset needs that the
 # base palette didn't have yet ("USA", present via the US7 lineage). Every

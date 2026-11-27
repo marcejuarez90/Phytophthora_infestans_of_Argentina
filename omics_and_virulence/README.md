@@ -125,12 +125,11 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   rank by degree of upregulation (max log2FC across the three
   timepoints) and keep the top 100 (79 RxLR, 21 apoplastic, 0 Crinkler
   — Crinkler drops out entirely at the filtering step, before ranking).
-  This replaces an earlier version that picked the "top 100 by lowest
-  p-value at any timepoint, regardless of sign" — that criterion let a
-  handful of confidently *repressed* genes into the panel and, combined
-  with a sequential (viridis) colormap with no true zero point, made
-  the panel read as more downregulation-heavy than the underlying data
-  actually is; the filter-then-rank-then-cap logic fixed that. Rows are
+  Filtering before ranking is what keeps the panel to induced genes:
+  ranking by lowest p-value at any timepoint regardless of sign lets a
+  handful of confidently *repressed* genes in, and with a sequential
+  (viridis) colormap that has no true zero point the panel then reads as
+  more downregulation-heavy than the underlying data is. Rows are
   hierarchically clustered (dendrogram) by Euclidean distance between
   each gene's 3-timepoint log2FC profile with average linkage; both the
   distance metric (`CLUSTER_METRIC`) and linkage method (`CLUSTER_METHOD`)
@@ -138,14 +137,14 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   grouping needs to be revisited (e.g. `CLUSTER_METRIC = "correlation"`
   groups by the *shape* of the temporal profile instead of the raw
   magnitude of the fold-change). Columns are fixed in temporal order.
-  Color scale is a **continuous viridis colormap**: an earlier version
-  used a custom diverging violet-white-green map with a true zero point,
-  built for when this panel could contain real downregulation; now that
-  the panel is pre-filtered to induced genes only, the few remaining
-  slightly-negative cells are negligible (down to about -0.1 log2FC,
-  against inductions up to +14.6), so a plain continuous scale
-  (`HEATMAP_CMAP`/`HEATMAP_NORM`) over the actual data range is simpler
-  and just as informative. Row labels are colored by effector type:
+  Color scale is a **continuous viridis colormap**: the panel is
+  pre-filtered to induced genes only, so the few slightly-negative cells
+  are negligible (down to about -0.1 log2FC, against inductions up to
+  +14.6) and a plain continuous scale (`HEATMAP_CMAP`/`HEATMAP_NORM`)
+  over the actual data range is simpler and just as informative. A
+  diverging map with a true zero point would only be worth its extra
+  complexity if the panel could contain real downregulation.
+  Row labels are colored by effector type:
   RXLR = red, Crinkler = blue, every other annotated class unified as
   "Apoplastic" = gold. Includes a printed count of how many induced
   effectors fall into each category.
@@ -265,12 +264,11 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   effector-clustering section above, Crinkler is included here (no
   reliability concern — this is composition, not kinetic clustering).
 
-  **Stacked bars instead of three separate pies (an earlier version):**
-  all three gene sets share a common 0–100% baseline, so a category's
-  share and how it shifts across gene sets are direct length comparisons
-  rather than angle judgments across three circles, and the fold-enrichment
-  figure (previously reported only in this section's result text) is now
-  annotated directly on the plot. Built by
+  **Stacked bars rather than three separate pies:** all three gene sets
+  share a common 0–100% baseline, so a category's share and how it shifts
+  across gene sets are direct length comparisons rather than angle
+  judgments across three circles, and the fold enrichment is annotated
+  directly on the plot instead of being left to the result text. Built by
   `plot_category_composition_bars()`, defined once in the load cell and
   reused both by this section's own standalone plot and its embedding in
   the Figure 3 wrap-up layout below, so both stay visually identical.
@@ -421,11 +419,10 @@ the manuscript, for orientation only: the notebook writes each panel on its own.
   (Innovator) each isolate column. Row labels include the R genes each
   variety expresses ("Spunta / R1", "Innovator / R1 R2 R3a R3b"). Points
   below a 5%-lesion threshold in Innovator are flagged with a red X as a
-  hypersensitive response rather than a compatible lesion. Extracted
-  from an earlier version of this notebook; only the plotting step is
-  reproduced here (the upstream VIA/pliman image-annotation pipeline
-  that produces `areas_por_hoja_total.csv` from the raw leaf photos and
-  VGG Image Annotator JSON files is not included).
+  hypersensitive response rather than a compatible lesion. Only the
+  plotting step is reproduced here: the upstream VIA/pliman
+  image-annotation pipeline that produces `areas_por_hoja_total.csv` from
+  the raw leaf photos and VGG Image Annotator JSON files is not included.
 - **Figure 5 — *N. benthamiana* infiltration assay** — reads `WL_Nb.tsv`
   (one row per infiltrated leaf: `variedad` = transgenic line, `aislamiento`
   = *P. infestans* isolate, `healthy`/`disease` = percent leaf area,

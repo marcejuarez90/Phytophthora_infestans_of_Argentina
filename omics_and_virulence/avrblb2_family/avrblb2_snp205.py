@@ -291,7 +291,7 @@ def self_test():
     assert seq_m == revcomp(seq_p)
 
     # a minus-strand gene whose codon must come out as the gene spells it, not
-    # reversed: this is the case that the linked-site test used to get wrong
+    # reversed -- the case a linked-site test gets wrong when it reverses it.
     # ATT (Ile) is used on purpose: its complement spelled backwards is TTA
     # (Leu), so a reverse-complement mistake changes the answer. TTT would not
     # have caught it, since complementing and reversing TTT gives TTT again.
