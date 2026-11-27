@@ -180,7 +180,7 @@ poppr_sheet("AMOVA three groups", "amova_S2_EU2A1_3subpop_Pop_3pop.csv",
             "AMOVA of the a priori three-group scheme within EU_2_A1 (Argentina+Uruguay, Panama, rest)",
             "Source of variation", 70, [
                 "Clone-corrected data, Bruvo's distance, 999 Monte Carlo permutations (poppr.amova, ade4 method).",
-                "35.75% of the total molecular variance was explained between the three groups (Std.Obs = 64.1, p = 0.001)."])
+                "35.93% of the total molecular variance was explained between the three groups (Std.Obs = 64.1, p = 0.001)."])
 
 wb.save(OUT)
 print("wrote", OUT)
